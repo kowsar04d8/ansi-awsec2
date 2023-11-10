@@ -1,0 +1,22 @@
+---
+- name: Create EC2 instance
+  hosts: localhost
+  gather_facts: yes
+  vars_files:
+    - creden.yml
+  tasks:
+    - name: Create EC2 instance
+      amazon.aws.ec2_instance:
+        aws_access_key: "{{ aws_access_key }}"
+        aws_secret_key: "{{ aws_secret_key }}"
+        name: "my-server"
+        key_name: "ltimind"
+        instance_type: t2.micro
+        security_group: efs-security group
+        region: ap-south-1
+        vpc_subnet_id: subnet-0aadbae5fee6f7f65
+        network:
+          assign_public_ip: true
+        image_id: ami-02e94b011299ef128
+        tags:
+          Environment: Testing
